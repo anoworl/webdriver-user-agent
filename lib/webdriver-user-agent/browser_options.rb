@@ -1,5 +1,3 @@
-require 'facets/hash/except'
-
 module Webdriver
   module UserAgent
     class BrowserOptions
@@ -20,7 +18,10 @@ module Webdriver
       end
 
       def browser_options
-        options.except(:browser, :agent, :orientation, :user_agent_string)
+        hash = options.dup
+        less_keys = [:browser, :agent, :orientation, :user_agent_string]
+        less_keys.each{ |k| hash.delete(k) }
+        hash
       end
 
       private
